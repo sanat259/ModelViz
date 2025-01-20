@@ -1,7 +1,8 @@
-import yfinance as yf
 import streamlit as st
 import pandas as pd
 import datetime 
+from yfinance_utils import YFinanceUtils
+
 st.title("Stock Market Analysis")
 
 #st.sidebar.title("Stock Market Analysis")
@@ -20,12 +21,12 @@ with col2:
     st.write("Enter End date")
     end_date = st.date_input("End date", datetime.date.today())
 
-ticker_data = yf.Ticker(ticker_symbol)
-ticker_info= ticker_data.info
-ticker_calender = ticker_data.calendar
-ticker_analyst_price_targets = ticker_data.analyst_price_targets
-ticker_quarterly_income_stmt = ticker_data.quarterly_income_stmt
-ticker_hist_df = ticker_data.history(period='1d', start=f"{start_date}", end=f"{end_date}") 
+ticker_data = YFinanceUtils(ticker_symbol)
+ticker_info= ticker_data.get_ticker_info()
+ticker_calender = ticker_data.get_ticker_calender() 
+ticker_analyst_price_targets = ticker_data.get_ticker_analyst_price_targets()
+ticker_quarterly_income_stmt = ticker_data.get_ticker_analyst_price_targets()
+ticker_hist_df = ticker_data.get_ticker_data(start_date, end_date)
 #ticker_data.option_chain(ticker_data.options[0]).calls
 
 st.write(f"Showing ticker info for: {ticker_symbol}")
