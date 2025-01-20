@@ -2,6 +2,8 @@ import streamlit as st
 import pandas as pd
 import datetime 
 from yfinance_utils import YFinanceUtils
+from technical_analysis import TechnicalAnalyst
+
 
 st.title("Stock Market Analysis")
 
@@ -41,3 +43,13 @@ with col1:
 with col2:
     st.header("Close Price")
     st.line_chart(ticker_hist_df["Close"])
+
+
+st.header("Technical Analysis Commentary")
+delta = end_date - start_date
+max= delta.days
+analysis_days = st.number_input(label="Number of Days", min_value=1, max_value=max, value= min(30, max))
+ta = TechnicalAnalyst(ticker_hist_df, analysis_period=analysis_days)
+commentaries = ta.technical_analysis_commentary()
+for comment in commentaries:
+    st.write(f"* {comment}")
