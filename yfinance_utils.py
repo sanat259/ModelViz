@@ -24,3 +24,5 @@ class YFinanceUtils:
 
     def get_ticker_quarterly_income_stmt(self):
         return self.ticker_quarterly_income_stmt
+    
+    
