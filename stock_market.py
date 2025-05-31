@@ -17,7 +17,10 @@ start_date = None
 end_date = None
 with col1:
     st.write("Enter start date")
-    start_date = st.date_input("Start date", datetime.date(2023, 1, 1))
+    start_date = st.date_input(
+        "Start date",
+        datetime.date.today() - datetime.timedelta(days=90)
+    )
 
 with col2:
     st.write("Enter End date")

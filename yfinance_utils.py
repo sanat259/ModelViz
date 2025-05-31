@@ -1,10 +1,13 @@
 import yfinance as yf
+from curl_cffi import requests
+
+session = requests.Session(impersonate="chrome")
 
 
 class YFinanceUtils:
     def __init__(self, ticker_symbol: str):
         self.ticker_symbol = ticker_symbol
-        self.ticker_data = yf.Ticker(ticker_symbol)
+        self.ticker_data = yf.Ticker(ticker_symbol, session=session)
         self.ticker_info = self.ticker_data.info
         self.ticker_calender = self.ticker_data.calendar
         self.ticker_analyst_price_targets = self.ticker_data.analyst_price_targets
